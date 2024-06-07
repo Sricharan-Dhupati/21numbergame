@@ -33,7 +33,8 @@ else:
     exit()
 
 u9 = input("n3 = ").split(' ')
-u9 = int(max(u9))
+u9 = [int(u9[0]), int(u9[1]), int(u9[2])]
+u9 = max(u9)
 
 if u9 in range(12):
     if u9 == 9:
