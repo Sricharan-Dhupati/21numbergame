@@ -1,5 +1,10 @@
 import time
 
+def wrong_input():
+    print("wrong input")
+    time.sleep(5)
+    exit()
+
 u1 = input("n1 = ").split(' ')
 u1 = int(max(u1))
 
@@ -12,9 +17,7 @@ if u1 in range(4):
         c = [4]
     print(c)
 else:
-    print("wrong input")
-    time.sleep(5)
-    exit()
+    wrong_input()
 
 u2 = input("n2 = ").split(' ')
 u2 = int(max(u2))
@@ -28,9 +31,7 @@ if u2 in range(8):
         c = [8]
     print(c)
 else:
-    print("wrong input")
-    time.sleep(5)
-    exit()
+    wrong_input()
 
 u9 = input("n3 = ").split(' ')
 u9 = [int(u9[0]), int(u9[1]), int(u9[2])]
@@ -45,9 +46,7 @@ if u9 in range(12):
         c = [12]
     print(c)
 else:
-    print("wrong input")
-    time.sleep(5)
-    exit()
+    wront_input()
 
 u3 = input("n4 = ").split(' ')
 u3 = int(max(u3))
@@ -116,8 +115,6 @@ if u3 in range(16):
             print(c)
             print("you lost!")
 else:
-    print("wrong input")
-    time.sleep(5)
-    exit()
+    wrong_input()
 
 time.sleep(30)
