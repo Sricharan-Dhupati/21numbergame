@@ -5,6 +5,7 @@ def wrong_input():
     time.sleep(5)
     exit()
 
+print("Start!")
 u1 = input("n1 = ").split(' ')
 u1 = int(max(u1))
 
