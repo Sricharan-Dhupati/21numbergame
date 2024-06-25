@@ -118,4 +118,4 @@ if u3 in range(16):
 else:
     wrong_input()
 
-time.sleep(10)
+time.sleep(20)
