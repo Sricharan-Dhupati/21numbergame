@@ -47,7 +47,7 @@ if u9 in range(12):
         c = [12]
     print(c)
 else:
-    wront_input()
+    wrong_input()
 
 u3 = input("n4 = ").split(' ')
 u3 = int(max(u3))
