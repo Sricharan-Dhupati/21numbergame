@@ -1,5 +1,5 @@
 # 21game
-This is an program that plays the 21 game with you!
+This is a program that plays the 21 game with you!
 
 21 is a 2 player game, in which the one has to take turns and say 3 consecutive numbers, the other picks up where the one left.
 The one to say the number 21 wins.
