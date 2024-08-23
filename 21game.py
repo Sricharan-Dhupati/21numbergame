@@ -1,121 +1,95 @@
-import time
+import sys
 
-def wrong_input():
-    print("wrong input")
-    time.sleep(5)
-    exit()
+if len(sys.argv) == 2:
+    if sys.argv[1] == "-h" or sys.argv[1] == '--help':
+        print('''
+            This is a program that plays the 21 number game with you!
+            Select your preferred mode between easy and impossible with e or i.
+            And enter your numbers which should be consecutive suppurated by spaces and hit enter.
+            The computer will display it's numbers.
+            Now you have to start where the computer has left.
+            This goes on until someone says 21.
+            Be smart and stop at 20.😉
 
-print("Start!")
-u1 = input("n1 = ").split(' ')
-u1 = int(max(u1))
+              All the best!!!
+        ''')
+        exit(0)
 
-if u1 in range(4):
-    if u1 == 1:
-        c = [2,3,4]
-    elif u1 == 2:
-        c = [3,4]
-    elif u1 == 3:
-        c = [4]
-    print(c)
-else:
-    wrong_input()
+def main():
+    print("Enter your consecutive numbers suppurated by spaces.\n")
 
-u2 = input("n2 = ").split(' ')
-u2 = int(max(u2))
+    # A counter to keep count of turns
+    turn = 1
 
-if u2 in range(8):
-    if u2 == 5:
-        c = [6,7,8]
-    elif u2 == 6:
-        c = [7,8]
-    elif u2 == 7:
-        c = [8]
-    print(c)
-else:
-    wrong_input()
+    # A nested list of all the previous computer generated numbers
+    previous = [[0]]
 
-u9 = input("n3 = ").split(' ')
-u9 = [int(u9[0]), int(u9[1]), int(u9[2])]
-u9 = max(u9)
+    while True:
+        player_num = input(f"Turn {turn}: ")
+        if check_wrong(player_num):
+            continue
+        nums = unpack_stringtoint(player_num)
+        near = nearestMultiple(max(nums))
 
-if u9 in range(12):
-    if u9 == 9:
-        c = [10,11,12]
-    elif u9 == 10:
-        c =[11,12]
-    elif u9 == 11:
-        c = [12]
-    print(c)
-else:
-    wrong_input()
+        # Some basic checks
+        if turn == 1 and max(nums) > 3:
+            print("You can only enter consecutive numbers in range(1,3), such as '1 2 3' or '1 2'")
+            continue
+        if min(nums) <= max(previous[-1]):
+            print("Invalid input: your input is not consecutive to computer input")
+            continue
 
-u3 = input("n4 = ").split(' ')
-u3 = int(max(u3))
+        # An empty list to take computer generated numbers and later print them out in order
+        comp_num = []
+        for i in range(3):
+            j = max(nums)+ i + 1
+            if j == near:
+                comp_num.append(j)
+                break
+            else:
+                comp_num.append(j)
 
-if u3 in range(16):
-    if u3 == 13:
-        c = [14,15,16]
-        print(c)
-        u4 = input("n4 = ").split(' ')
-        u4 = int(max(u4))
+        print("Computer says: ", end = " ")
+        for i in range(len(comp_num)):
+            print(comp_num[i], end= ' ')
+        print()
+        turn += 1
 
-        if u4 == 17:
-            c = [18,19,20]
-            print(c)
-            print("you lost!")
-        
-        if u4 == 18:
-            c = [19,20]
-            print(c)
-            print("you lost!")
+        # Appening current computer generated numbers for future use
+        previous.append(comp_num)
 
-        if u4 == 19:
-            c = [20]
-            print(c)
-            print("you lost!")
+        # Winner check
+        if max(comp_num) == 20:
+            print("\n\nComputer won!! \nYou can't win in this game mode 😊")
+            exit(0)
 
-    if u3 ==14:
-        c = [15,16]
-        print(c)
-        u4 = input("n4 = ").split(' ')
-        u4 = int(max(u4))
+# Checks if the input is valid or not
+def check_wrong(current_turn,previous_comp_num='0'):
+    try:
+        current_num = unpack_stringtoint(current_turn)
+        previous_num = unpack_stringtoint(previous_comp_num)
+    except (TypeError, ValueError):
+        print("Invalid input: your input is not a number")
+        return True
 
-        if u4 == 17:
-            c = [18,19,20]
-            print(c)
-            print("you lost!")
-        
-        if u4 == 18:
-            c = [19,20]
-            print(c)
-            print("you lost!")
+    if min(current_num) <= max(previous_num):
+        print("Invalid input: your input is not consecutive to computer input")
+        return True
 
-        if u4 == 19:
-            c = [20]
-            print(c)
-            print("you lost!")
-        
-    if u3 == 15:
-        c = [16]
-        print(c)
-        u4 = input("n4 = ").split(' ')
-        u4 = int(max(u4))
+# Converts a string of numbers into list such as '1 2 3' >> [1,2,3]
+def unpack_stringtoint(string):
+    nums = []
+    num_string = string.strip().split(' ')
 
-        if u4 == 17:
-            c = [18,19,20]
-            print(c)
-            print("you lost!")
-        
-        if u4 == 18:
-            c = [19,20]
-            print(c)
-            print("you lost!")
-        
-        if u4 == 19:
-            c = [20]
-            print(c)
-            print("you lost!")
-else:
-    wrong_input()
+    for i in range(len(num_string)):
+        nums.append(int(num_string[i]))
+    return nums
 
-time.sleep(20)
+# Returns the nearest multiple of 4, to be used in impossible mode
+def nearestMultiple(num):
+    if num >= 4:
+        near = num + (4 - (num % 4))
+    else:
+        near = 4
+    return near
+
