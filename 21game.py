@@ -60,7 +60,7 @@ def main():
 
         # Winner check
         if max(comp_num) == 20:
-            print("\n\nComputer won!! \nYou can't win in this game mode 😊")
+            print("\n\nComputer won!! \nYou can't win in this game 😊")
             exit(0)
 
 # Checks if the input is valid or not
@@ -93,3 +93,5 @@ def nearestMultiple(num):
         near = 4
     return near
 
+if __name__ == "__main__":
+    main()
